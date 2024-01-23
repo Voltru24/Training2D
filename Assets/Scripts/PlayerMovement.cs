@@ -10,11 +10,9 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D _rigidbody2d;
     private Animator _animator;
-    private bool _isGround;
 
     private void Start()
     {
-       
         _rigidbody2d = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
     }
@@ -67,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
         {
             float jump = Input.GetAxisRaw("Jump");
 
-            _rigidbody2d.AddForce(Vector2.up * jump * _jumpForce, ForceMode2D.Impulse);
+            _rigidbody2d.AddForce(Vector2.up * jump * _jumpForce);
         }
     }
 }

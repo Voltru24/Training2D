@@ -1,18 +1,35 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
+    [SerializeField] private float _speed;
+
+    [SerializeField] private List<Transform> _routePoints;
         
+    private int _indexRoute = 0;
+
+    private void FixedUpdate()
+    {
+        int distanceError = 1;
+
+        if (Vector3.Distance(_routePoints[_indexRoute].position, transform.position) < distanceError)
+        {
+            _indexRoute++;
+
+            if (_indexRoute >= _routePoints.Count)
+            {
+                _indexRoute = 0;
+            }
+        }
+
+        Move();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Move()
     {
-        
+        Vector3 direction = (_routePoints[_indexRoute].position - transform.position).normalized;
+
+        transform.Translate(direction * _speed * Time.deltaTime);
     }
 }
