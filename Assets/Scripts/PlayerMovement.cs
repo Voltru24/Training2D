@@ -29,15 +29,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (horizontal != 0) 
         {
-            _animator.SetBool("isRun", true);
+            _animator.SetBool(PlayerAnimatorData.Params.isRun, true);
 
             Rotate(horizontal);
 
-            transform.Translate(_moveSpeed * Time.deltaTime * Vector2.right);
+            _rigidbody2d.AddForce(_moveSpeed * Vector2.right * horizontal);
         }
         else
         {
-            _animator.SetBool("isRun", false);
+            _animator.SetBool(PlayerAnimatorData.Params.isRun, false);
         }
     }
 

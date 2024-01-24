@@ -11,9 +11,9 @@ public class EnemyMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        int distanceError = 1;
+        int epsilon = 1;
 
-        if (Vector3.Distance(_routePoints[_indexRoute].position, transform.position) < distanceError)
+        if (Vector3.Distance(_routePoints[_indexRoute].position, transform.position) < epsilon)
         {
             _indexRoute++;
 
