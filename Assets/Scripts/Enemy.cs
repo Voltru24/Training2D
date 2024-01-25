@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private float _distanceAttack = 1f;
 
-    [SerializeField] private float _forceAttack = 0.5f;
+    [SerializeField] private int _forceAttack = 1;
 
     [SerializeField] private List<Transform> _routePoints;
 

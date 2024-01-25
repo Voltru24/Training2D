@@ -4,8 +4,8 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private int _scoreMoney = 0;
 
-    [SerializeField] private float _healthMax = 10;
-    [SerializeField] private float _health = 10;
+    [SerializeField] private int _healthMax = 10;
+    [SerializeField] private int _health = 10;
 
     public void AddMoney(int value)
     {
@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float value)
+    public void TakeDamage(int value)
     {
         _health -= value;
 
