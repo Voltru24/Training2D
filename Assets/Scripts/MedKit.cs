@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class Money : MonoBehaviour
+public class MedKit : MonoBehaviour
 {
-    [SerializeField] private int _value = 1;
+    [SerializeField] private int _value = 10;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -10,7 +10,7 @@ public class Money : MonoBehaviour
 
         if (player != null)
         {
-            player.AddMoney(_value);
+            player.AddHealth(_value);
 
             Destroy(gameObject);
         }
