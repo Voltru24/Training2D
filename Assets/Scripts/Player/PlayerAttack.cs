@@ -4,16 +4,21 @@ public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private int _forceAttack = 1;
     [SerializeField] private float _speedAttack = 2f;
+    [SerializeField] private float _timeVampirism = 6f;
+    [SerializeField] private Health _healthPlayer;
+    [SerializeField] private KeyCode _keyVampirism;
 
     private bool _isGoal = false;
     private Enemy _enemy;
-    private bool isAttackTimer = false;
+    private bool _isAttackTimer = false;
+    private bool _isVampirism = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.GetComponent<Enemy>())
         {
             _enemy = collision.GetComponent<Enemy>();
+
             _isGoal = true;
         }
     }
@@ -26,17 +31,27 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKey(_keyVampirism))
+        {
+            Invoke(nameof(VampirismTimer), _timeVampirism);
+
+            _isVampirism = true;
+        }
+    }
+
     private void FixedUpdate()
     {
         if (_isGoal == true)
         {
-            if (isAttackTimer == false)
+            if (_isAttackTimer == false)
             {
                 Attack();
 
                 Invoke(nameof(AttackTimer), _speedAttack);
 
-                isAttackTimer = true;
+                _isAttackTimer = true;
             }
         }
     }
@@ -45,11 +60,31 @@ public class PlayerAttack : MonoBehaviour
     {
         Health health = _enemy.GetComponent<Health>();
 
+        if(_isVampirism == true)
+        {
+            float tempHealth = health.Value;
+            float forceVampirism = _forceAttack;
+
+            if (tempHealth < forceVampirism)
+            {
+                tempHealth -= forceVampirism;
+
+                forceVampirism += tempHealth;
+            }
+
+            _healthPlayer.AddHealth(forceVampirism);
+        }
+
         health.TakeDamage(_forceAttack);
+    }
+
+    private void VampirismTimer()
+    {
+        _isVampirism = false;
     }
 
     private void AttackTimer()
     {
-        isAttackTimer = false;
+        _isAttackTimer = false;
     }
 }
