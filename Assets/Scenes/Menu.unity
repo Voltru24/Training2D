@@ -209,7 +209,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1450051759}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 100
+  m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
@@ -227,8 +227,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94ea085540e08845b3746de305564e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _barMaxValue: 100
-  _speed: 0.1
 --- !u!1 &107278324
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,21 +596,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1493406052}
-        m_TargetAssemblyTypeName: HealthBarText, Assembly-CSharp
-        m_MethodName: TakeHealt
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 10
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 66034927}
-        m_TargetAssemblyTypeName: HealthBarSlider, Assembly-CSharp
-        m_MethodName: TakeHealt
+      - m_Target: {fileID: 932072324}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: AddHealth
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -871,6 +857,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 808550517}
   m_CullTransparentMesh: 1
+--- !u!1 &932072323
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 932072325}
+  - component: {fileID: 932072324}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &932072324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 932072323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c66e086ecc0208d4288869b92652a0ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthMax: 10
+  _health: 10
+  _healthBars:
+  - {fileID: 1493406052}
+  - {fileID: 66034927}
+  - {fileID: 1193714270}
+--- !u!4 &932072325
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 932072323}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 479.60895, y: 433.155, z: -2.3263428}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1045212035
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,7 +1171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b95c7cf636ed4348b98c71820d1d4bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _barMaxValue: 100
+  _speed: 5
 --- !u!114 &1193714271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1181,7 +1217,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1988783701}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 100
+  m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
@@ -1571,26 +1607,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1493406052}
-        m_TargetAssemblyTypeName: HealthBarText, Assembly-CSharp
+      - m_Target: {fileID: 932072324}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
         m_MethodName: TakeDamage
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 9
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 66034927}
-        m_TargetAssemblyTypeName: HealthBarSlider, Assembly-CSharp
-        m_MethodName: TakeDamage
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 9
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
