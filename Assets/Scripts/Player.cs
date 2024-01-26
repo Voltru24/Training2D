@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private int _scoreMoney = 0;
-
     [SerializeField] private int _healthMax = 10;
     [SerializeField] private int _health = 10;
 
-    public void AddMoney(int value)
+    [SerializeField] private HealthBar[] _healthBars;
+
+    private void Start()
     {
-        _scoreMoney += value;
+        ShowInfo();
     }
 
     public void AddHealth(int value)
@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
         {
             _health = _healthMax;
         }
+
+        ShowInfo();
     }
 
     public void TakeDamage(int value)
@@ -28,12 +30,17 @@ public class Player : MonoBehaviour
 
         if (_health <= 0)
         {
-            Kill();
+            _health = 0;
         }
+
+        ShowInfo();
     }
 
-    public void Kill()
+    private void ShowInfo()
     {
-        Destroy(gameObject);
+        foreach (HealthBar healthBar in _healthBars)
+        {
+            healthBar.ShowHealth(_health, _healthMax);
+        }
     }
 }

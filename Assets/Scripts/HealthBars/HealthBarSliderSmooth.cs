@@ -1,60 +1,39 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Slider))]
-public class HealthBarSliderSmooth : MonoBehaviour
+public class HealthBarSliderSmooth : HealthBar
 {
+    [SerializeField] private float _speed = 1;
+
     private Slider _slider;
+    private Coroutine _workSmoothShowHealth;
 
-    [SerializeField] private int _barMaxValue = 100;
-    [SerializeField] private float _speed = 5;
-
-    private float _healthMax = 100;
-    private float _health = 100;
-
-    private void Start()
+    private void Awake()
     {
         _slider = GetComponent<Slider>();
-
-        _slider.maxValue = _barMaxValue;
-
-        _slider.value = Mathf.Lerp(_slider.minValue, _slider.maxValue, _health / _healthMax);
     }
 
-    private void FixedUpdate()
+    public override void ShowHealth(float health, float healthMax)
     {
-        ShowInfo();
-    }
-
-    public void SetHealthMax(int value)
-    {
-        _healthMax = value;
-    }
-
-    public void TakeHealt(int value)
-    {
-        _health += value;
-
-        if (_healthMax < _health)
+        if (_workSmoothShowHealth != null)
         {
-            _health = _healthMax;
+            StopCoroutine(_workSmoothShowHealth);
         }
+
+        _workSmoothShowHealth = StartCoroutine(SmoothShowHealth(health, healthMax));
     }
 
-    public void TakeDamage(int value)
+    private IEnumerator SmoothShowHealth(float health, float healthMax)
     {
-        _health -= value;
+        float lerp = Mathf.Lerp(_slider.minValue, _slider.maxValue, health / healthMax);
 
-        if (_health < 0)
+        while (_slider.value != lerp)
         {
-            _health = 0;
+            _slider.value = Mathf.MoveTowards(_slider.value, lerp, _speed * Time.deltaTime);
+
+            yield return new WaitForFixedUpdate();
         }
-    }
-
-    private void ShowInfo()
-    {
-        float lerp = Mathf.Lerp(_slider.minValue, _slider.maxValue, _health / _healthMax);
-
-        _slider.value = Mathf.MoveTowards(_slider.value, lerp, _speed * Time.deltaTime);
     }
 }
