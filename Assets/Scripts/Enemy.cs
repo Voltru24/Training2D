@@ -12,8 +12,6 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private List<Transform> _routePoints;
 
-    [SerializeField] private int _health = 2;
-
     private int _indexRoute = 0;
 
     private bool _isGoal = false;
@@ -67,22 +65,6 @@ public class Enemy : MonoBehaviour
             Move(_routePoints[_indexRoute]);
         }
     }
-
-    public void TakeDamage(int value)
-    {
-        _health -= value;
-
-        if (_health <= 0)
-        {
-            Kill();
-        }
-    }
-
-    public void Kill()
-    {
-        Destroy(gameObject);
-    }
-
     private void Move(Transform goal)
     {
         Vector3 direction = (goal.position - transform.position).normalized;
@@ -92,9 +74,9 @@ public class Enemy : MonoBehaviour
 
     private void Attack()
     {
-        Player player = _goal.GetComponent<Player>();
+        Health health = _goal.GetComponent<Health>();
 
-        player.TakeDamage(_forceAttack);
+        health.TakeDamage(_forceAttack);
 
         isAttackTimer = false;
     }

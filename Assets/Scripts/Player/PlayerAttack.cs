@@ -43,7 +43,9 @@ public class PlayerAttack : MonoBehaviour
 
     private void Attack()
     {
-        _enemy.TakeDamage(_forceAttack);
+        Health health = _enemy.GetComponent<Health>();
+
+        health.TakeDamage(_forceAttack);
     }
 
     private void AttackTimer()

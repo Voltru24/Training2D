@@ -6,11 +6,11 @@ public class MedKit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Player player = collision.GetComponent<Player>();
+        Health health = collision.GetComponent<Health>();
 
-        if (player != null)
+        if (health != null)
         {
-            player.AddHealth(_value);
+            health.AddHealth(_value);
 
             Destroy(gameObject);
         }
