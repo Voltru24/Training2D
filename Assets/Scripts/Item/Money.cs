@@ -6,9 +6,9 @@ public class Money : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Player player = collision.GetComponent<Player>();
+        Player player;
 
-        if (player != null)
+        if (TryGetComponent<Player>(out player))
         {
             player.AddMoney(_value);
 

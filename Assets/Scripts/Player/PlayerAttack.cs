@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
@@ -35,7 +36,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Input.GetKey(_keyVampirism))
         {
-            Invoke(nameof(VampirismTimer), _timeVampirism);
+            StartCoroutine(DetainVampirism());
 
             _isVampirism = true;
         }
@@ -49,7 +50,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 Attack();
 
-                Invoke(nameof(AttackTimer), _speedAttack);
+                StartCoroutine(DetainAttack());
 
                 _isAttackTimer = true;
             }
@@ -62,15 +63,7 @@ public class PlayerAttack : MonoBehaviour
 
         if(_isVampirism == true)
         {
-            float tempHealth = health.Value;
-            float forceVampirism = _forceAttack;
-
-            if (tempHealth < forceVampirism)
-            {
-                tempHealth -= forceVampirism;
-
-                forceVampirism += tempHealth;
-            }
+            float forceVampirism = Mathf.Clamp(_forceAttack, 0, health.Value);
 
             _healthPlayer.AddHealth(forceVampirism);
         }
@@ -78,13 +71,17 @@ public class PlayerAttack : MonoBehaviour
         health.TakeDamage(_forceAttack);
     }
 
-    private void VampirismTimer()
+    private IEnumerator DetainVampirism()
     {
+        yield return new WaitForSeconds(_timeVampirism);
+
         _isVampirism = false;
     }
 
-    private void AttackTimer()
+    private IEnumerator DetainAttack()
     {
+        yield return new WaitForSeconds(_speedAttack);
+
         _isAttackTimer = false;
     }
 }

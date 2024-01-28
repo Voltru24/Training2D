@@ -6,9 +6,9 @@ public class MedKit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Health health = collision.GetComponent<Health>();
+        Health health;
 
-        if (health != null)
+        if (TryGetComponent<Health>(out health))
         {
             health.AddHealth(_value);
 
